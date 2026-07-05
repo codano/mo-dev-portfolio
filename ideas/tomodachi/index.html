@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.css" integrity="sha512-NhLySQDkiKSKnT+R795uaHWRQ7D3VuIvgeOLCK8cWq4w5fq4sWF90gj8eURpTqn/f1mFzqClpOz8JPlgVTLfFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
+    <title>Tomodachi life mii level tracker</title>
+</head>
+<body>
+    
+   <div class="container mt-4">
+    <h1 class="display-4" text-center><i class="fa-solid fa-bars-progress text-primary"></i>Tomodachi<span class="text-primary"> Mii</span> Level Tracker</h1>
+    <form id="mii-form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="level">Current Level</label>
+            <input type="text" id="level" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exp">Happiness</label>
+            <input type="text" id="exp" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="dislike">Disliked Items</label>
+            <input type="text" id="dislike" class="form-control">
+        </div>
+        <input type="submit" value="Add Mii" class="btn btn-block btn-primary">
+    </form>
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Current Level</th>
+                    <th>Happiness</th>
+                    <th>Disliked Items</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="mii-list"></tbody>
+        </table>
+   </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
+
