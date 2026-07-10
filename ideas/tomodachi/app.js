@@ -60,7 +60,22 @@ class UI {
 document.addEventListener('DOMContentLoaded', UI.displayedMiis);
 
 // Event: Add a Mii
-document.querySelector('#mii-form').addEventListener('submit');
+document.querySelector('#mii-form').addEventListener('submit', (e) => {
+    //  Prevent actual submit
+    e.preventDefault();
+
+    // Get form values
+    const name = document.querySelector('#name').value;
+    const level = document.querySelector('#level').value;
+    const exp = document.querySelector('#exp').value;
+    const dislike = document.querySelector('#dislike').value;
+
+    // Instatiate mii
+    const mii = new Mii(name, level, exp, dislike);
+
+    // Add mii to UI
+    UI.addMiiToList(mii);
+});
 // Event: Edit a Mii
 
 // Event: Remove a Mii
