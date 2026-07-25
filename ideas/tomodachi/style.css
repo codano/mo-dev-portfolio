@@ -1,0 +1,31 @@
+/* Happy = green fill, Sad = blue fill, same technique either way */
+.form-range.range-happy::-webkit-slider-runnable-track {
+    background: linear-gradient(
+        to right,
+        #198754 var(--range-progress, 50%),
+        #dee2e6 var(--range-progress, 50%)
+    );
+}
+.form-range.range-sad::-webkit-slider-runnable-track {
+    background: linear-gradient(
+        to right,
+        #0dcaf0 var(--range-progress, 50%),
+        #dee2e6 var(--range-progress, 50%)
+    );
+}
+
+/* Firefox equivalent */
+.form-range.range-happy::-moz-range-track {
+    background: linear-gradient(
+        to right,
+        #198754 var(--range-progress, 50%),
+        #dee2e6 var(--range-progress, 50%)
+    );
+}
+.form-range.range-sad::-moz-range-track {
+    background: linear-gradient(
+        to right,
+        #0dcaf0 var(--range-progress, 50%),
+        #dee2e6 var(--range-progress, 50%)
+    );
+}
