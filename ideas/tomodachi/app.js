@@ -64,8 +64,8 @@ class UI {
         <td>${displayStatus}</td>
         <td>${mii.dislike || 'None'}</td>
         <td>
-            <a href= "#" class="btn btn-info btn-sm edit me-1">O</a>
-            <a href= "#" class="btn btn-danger btn-sm delete">X</a>
+            <a href= "#" class="btn btn-info btn-sm edit me-1">edit</a>
+            <a href= "#" class="btn btn-danger btn-sm delete">delete</a>
         </td>
         `;
 
@@ -110,7 +110,11 @@ let allMiis = [];
 const slider = document.querySelector('#exp');
 const sliderValue = document.querySelector('#slider-value');
 const statusSelect = document.querySelector('#mii-status');
-
+const editModalElement = document.querySelector('#editModal');
+const editModal = new bootstrap.Modal(editModalElement);
+const editSlider = document.querySelector('#edit-exp');
+const editSliderValue = document.querySelector('#edit-slider-value');
+const editStatusSelect = document.querySelector('#edit-status');
 
 // Event Display Mii (show mii in list), slider load to fill 50% before interaction
 document.addEventListener('DOMContentLoaded', () => {
@@ -135,6 +139,17 @@ statusSelect.addEventListener('change', (e) => {
         slider.classList.remove('range-sad');
         slider.classList.add('range-happy'); 
     }
+});
+
+// Event update editSlider progress and Status select
+editSlider.addEventListener('input', (e) => {
+    editSliderValue.textContent = e.target.value;
+    editSlider.style.setProperty('--range-progress', `${e.target.value}%`);
+});
+
+editStatusSelect.addEventListener('change', (e) => {
+    editSlider.classList.remove('range-happy', 'range-sad');
+    editSlider.classList.add(e.target.value === 'happy' ? 'range-happy' : 'range-sad');
 });
 
 // Event: Add a Mii
@@ -170,9 +185,7 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
 });
 
 
-// Event: Edit a Mii
-
-// Event: Remove a Mii and Edit Mii
+// Event: Remove a Mii and Edit a Mii
 let currentEditIndex = null;
 
 document.querySelector('#mii-list').addEventListener('click', (e) => {
@@ -191,7 +204,17 @@ document.querySelector('#mii-list').addEventListener('click', (e) => {
         document.querySelector('#edit-exp').value = mii.exp;
         document.querySelector('#edit-slider-value').textContent = mii.exp;
         document.querySelector('#edit-dislike').value = mii.dislike;
+
+        const editSlider = document.querySelector('#edit-exp');
+        editSlider.classList.remove('range-happy', 'range-sad');
+        editSlider.classList.add(mii.status === 'happy' ? 'range-happy' : 'range-sad');
+        editSlider.style.setProperty('--range-progress', `${mii.exp}%`);
+       
+        // const editModal = new bootstrap.Modal(document.querySelector('#editModal'));
+        editModal.show();
+        
     }
+    
 
     UI.deleteMii(e.target);
 });
@@ -207,7 +230,8 @@ document.querySelector('#save-edit-btn').addEventListener('click', () => {
     UI.displayedMiis(); // re-render whole table with updated data
 
     // Close the modal programmatically
-    bootstrap.Modal.getInstance(document.querySelector('#editModal')).hide();
+    // bootstrap.Modal.getInstance(document.querySelector('#editModal')).hide();
+    editModal.hide();
 });
 
 // Event: Sort Mii
