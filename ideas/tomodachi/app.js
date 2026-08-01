@@ -84,6 +84,15 @@ class UI {
         }
     }
 
+    static showAlert(message, className) {
+        const div = document.createElement('div');
+        div.className = `alert alert-${className}`;
+        div.appendChild(document.createTextNode(message));
+        const container = document.querySelector('.container');
+        const form = document.querySelector('#mii-form');
+        container.insertBefore(div, form);
+    }
+
     static clearFields() {
         document.querySelector('#name').value = '';
         document.querySelector('#level').value = '';
@@ -166,7 +175,7 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
 
     // Validate 
     if(name === '' || level === '') {
-        alert('Please fill in Name and Level');
+        UI.showAlert('Please fill in Name and Level', 'danger');
     } else {
         // Instatiate mii
     const mii = new Mii(name, level, status, exp, dislike);
