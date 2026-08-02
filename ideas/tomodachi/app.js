@@ -11,43 +11,21 @@ class Mii{
 
 // Ui Class: Handle UI Tasks
 class UI {
-    // static displayedMiis() {
-    //     // Mock data
-    //     const StoredMiis = [
-    //         {
-    //             name: '1',
-    //             level: '3',
-    //             status: 'happy',
-    //             exp: '75',
-    //             dislike: 'cheese'
-    //         },
-    //          {
-    //             name: 'allen',
-    //             level: '2',
-    //             status: 'sad',
-    //             exp: '20',
-    //             dislike: 'peppers'
-    //         },
-    //          {
-    //             name: 'vegeta',
-    //             level: '9',
-    //             status: 'happy',
-    //             exp: '95',
-    //             dislike: 'cake'
-    //         }
-    //     ];
+    
     static displayedMiis() {
-        if (allMiis.length === 0) {
-            allMiis = [
-                { name: 'vegeta', level: '9', status: 'happy', exp: '95', dislike: 'cake' }
-            ];
-        }
-        document.querySelector('#mii-list').innerHTML = '';
-        allMiis.forEach((mii, index) => UI.addMiiToList(mii, index));
+        const miis = Store.getMiis;
+
+        miis.forEach((mii) => UI.addMiiToList(mii));
+        // if (allMiis.length === 0) {
+        //     allMiis = [
+        //         { name: 'vegeta', level: '9', status: 'happy', exp: '95', dislike: 'cake' }
+        //     ];
+        // }
+        // document.querySelector('#mii-list').innerHTML = '';
+        // allMiis.forEach((mii, index) => UI.addMiiToList(mii, index));
     }
     
-    //     StoredMiis.forEach((mii) => UI.addMiiToList(mii));
-    // }
+    
 
     static addMiiToList(mii, index) {
         const list = document.querySelector('#mii-list');
@@ -91,6 +69,9 @@ class UI {
         const container = document.querySelector('.container');
         const form = document.querySelector('#mii-form');
         container.insertBefore(div, form);
+        
+        // Vanish in 3 seconds
+        setTimeout(() => document.querySelector('.alert').remove(), 3000);
     }
 
     static clearFields() {
@@ -108,8 +89,39 @@ class UI {
 // Store Class: Handles Storage
 class Store {
     static getMiis() {
+        let miis;
+        if(localStorage.getItem('miis') === null) {
+            miis = [];
+        } else {
+            miis = JSON.parse(localStorage.getItem('miis'));
+        }
+
         return allMiis;
     }
+
+
+    static addMii(mii) {
+        const miis = Store.getMiis();
+
+        miis.push(mii);
+
+        localStorage.setItem('miis', JSON.stringify(miis));
+    }
+
+    static editMii() {
+
+    }
+
+    // static removeMii() {
+    //     const miis = Store.getMiis();
+    //     miis.forEach((mii, index) => {
+    //         if(mii. === ) {
+    //          miis.splice(index, 1);
+    //         }
+    //     });
+
+    //     localStorage.setItem('miis', JSON.stringify(miis));
+    // }
 }
 
 let allMiis = [];
@@ -184,6 +196,12 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
     allMiis.push(mii);
     UI.addMiiToList(mii, allMiis.length - 1);
 
+    // Add mii to storage
+    Store.addMii(mii);
+
+    // Show success add mii message
+    UI.showAlert('Mii Added', 'success');
+
     // Clear fields 
     UI.clearFields();
 
@@ -194,7 +212,7 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
 });
 
 
-// Event: Remove a Mii and Edit a Mii
+// Event: Remove a Mii and Edit a Mii in UI
 let currentEditIndex = null;
 
 document.querySelector('#mii-list').addEventListener('click', (e) => {
@@ -226,7 +244,14 @@ document.querySelector('#mii-list').addEventListener('click', (e) => {
     
 
     UI.deleteMii(e.target);
+
+    // Show success remove mii message
+    UI.showAlert('Mii Removed', 'success');
+
 });
+
+// Remove mii from storage
+// Store.removeMii(e.target.parentElementSibling.textContent);
 
 document.querySelector('#save-edit-btn').addEventListener('click', () => {
     const mii = allMiis[currentEditIndex];
@@ -237,6 +262,9 @@ document.querySelector('#save-edit-btn').addEventListener('click', () => {
     mii.dislike = document.querySelector('#edit-dislike').value.trim();
 
     UI.displayedMiis(); // re-render whole table with updated data
+
+    // Show success add mii message
+    UI.showAlert('Mii Edit Successful', 'success');
 
     // Close the modal programmatically
     // bootstrap.Modal.getInstance(document.querySelector('#editModal')).hide();
