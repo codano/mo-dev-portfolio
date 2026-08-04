@@ -261,7 +261,7 @@ document.querySelector('#save-edit-btn').addEventListener('click', () => {
     mii.status = document.querySelector('#edit-status').value;
     mii.exp = document.querySelector('#edit-exp').value;
     mii.dislike = document.querySelector('#edit-dislike').value.trim();
-    localStorage.setItem('miis', JSON.stringify(miis))
+    Store.editMii(mii);
     UI.displayedMiis(); // re-render whole table with updated data
 
     // Show success add mii message
