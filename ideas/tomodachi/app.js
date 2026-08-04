@@ -1,6 +1,7 @@
 // Mii Class: Represents a Mii
 class Mii{
     constructor (name, level, status, exp, dislike) {
+        this.id = crypto.randomUUID();
         this.name = name;
         this.level = level;
         this.status = status; // added to capture the 'happy or sad'
@@ -13,16 +14,13 @@ class Mii{
 class UI {
     
     static displayedMiis() {
-        const miis = Store.getMiis;
+        const miis = Store.getMiis();
+
+        const list = document.querySelector('#mii-list');
+        list.innerHTML = '';
 
         miis.forEach((mii) => UI.addMiiToList(mii));
-        // if (allMiis.length === 0) {
-        //     allMiis = [
-        //         { name: 'vegeta', level: '9', status: 'happy', exp: '95', dislike: 'cake' }
-        //     ];
-        // }
-        // document.querySelector('#mii-list').innerHTML = '';
-        // allMiis.forEach((mii, index) => UI.addMiiToList(mii, index));
+        
     }
     
     
@@ -30,7 +28,7 @@ class UI {
     static addMiiToList(mii, index) {
         const list = document.querySelector('#mii-list');
         const row = document.createElement('tr');
-        row.dataset.index = index;
+        row.dataset.id = mii.id;
 
         //Formats the output for the "Happiness" column
         const statusEmoji = mii.status === 'happy' ? '😊 Happy' : '😥 Sad';
@@ -96,7 +94,7 @@ class Store {
             miis = JSON.parse(localStorage.getItem('miis'));
         }
 
-        return allMiis;
+        return miis;
     }
 
 
@@ -108,23 +106,21 @@ class Store {
         localStorage.setItem('miis', JSON.stringify(miis));
     }
 
-    static editMii() {
+    static editMii(updatedMii) {
+        const miis = Store.getMiis();
+        const updated = miis.map(mii => mii.id === updatedMii.id ? updatedMii : mii);
+        localStorage.setItem('miis', JSON.stringify(updated));
 
     }
 
-    // static removeMii() {
-    //     const miis = Store.getMiis();
-    //     miis.forEach((mii, index) => {
-    //         if(mii. === ) {
-    //          miis.splice(index, 1);
-    //         }
-    //     });
-
-    //     localStorage.setItem('miis', JSON.stringify(miis));
-    // }
+    static removeMii(id) {
+        const miis = Store.getMiis().filter(mii => mii.id !== id);
+       
+        localStorage.setItem('miis', JSON.stringify(miis));
+    }
 }
 
-let allMiis = [];
+
 
 
 // Dom elements (grab once to use in multiple events)
@@ -192,12 +188,10 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
         // Instatiate mii
     const mii = new Mii(name, level, status, exp, dislike);
 
-    // Add mii to UI
-    allMiis.push(mii);
-    UI.addMiiToList(mii, allMiis.length - 1);
-
-    // Add mii to storage
+    // Add mii to UI and to Storage
     Store.addMii(mii);
+    // UI.addMiiToList(mii);
+    UI.displayedMiis();
 
     // Show success add mii message
     UI.showAlert('Mii Added', 'success');
@@ -215,15 +209,16 @@ document.querySelector('#mii-form').addEventListener('submit', (e) => {
 // Event: Remove a Mii and Edit a Mii in UI
 let currentEditIndex = null;
 
+
 document.querySelector('#mii-list').addEventListener('click', (e) => {
     // Prevent standard link jump anchor behavior
-    if(e.target.classList.contains('delete') || e.target.classList.contains('edit')) {
+    if(e.target.classList.contains('edit')) {
         e.preventDefault();
-    }
-     if (e.target.classList.contains('edit')) {
         const row = e.target.closest('tr');
-        currentEditIndex = row.dataset.index;
-        const mii = allMiis[currentEditIndex];
+        const id = row.dataset.id;
+        currentEditIndex = id;
+        const miis = Store.getMiis();
+        const mii = miis.find(m => m.id === id);
 
         document.querySelector('#edit-name').value = mii.name;
         document.querySelector('#edit-level').value = mii.level;
@@ -239,35 +234,39 @@ document.querySelector('#mii-list').addEventListener('click', (e) => {
        
         // const editModal = new bootstrap.Modal(document.querySelector('#editModal'));
         editModal.show();
-        
+        return; // stop don't fall into delete logic
     }
-    
+    // Remove mii from storage
+    if (e.target.classList.contains('delete')) {
+            e.preventDefault();
+            const row = e.target.closest('tr');
+            const id = row.dataset.id;
+            Store.removeMii(id);
+            // UI.deleteMii(e.target);
+            UI.displayedMiis();
+            // Show success remove mii message
+            UI.showAlert('Mii Removed', 'success');
 
-    UI.deleteMii(e.target);
-
-    // Show success remove mii message
-    UI.showAlert('Mii Removed', 'success');
+    }
 
 });
 
-// Remove mii from storage
-// Store.removeMii(e.target.parentElementSibling.textContent);
+
 
 document.querySelector('#save-edit-btn').addEventListener('click', () => {
-    const mii = allMiis[currentEditIndex];
+    const miis = Store.getMiis();
+    const mii = miis.find(m => m.id === currentEditIndex);
     mii.name = document.querySelector('#edit-name').value.trim();
     mii.level = document.querySelector('#edit-level').value.trim();
     mii.status = document.querySelector('#edit-status').value;
     mii.exp = document.querySelector('#edit-exp').value;
     mii.dislike = document.querySelector('#edit-dislike').value.trim();
-
+    localStorage.setItem('miis', JSON.stringify(miis))
     UI.displayedMiis(); // re-render whole table with updated data
 
     // Show success add mii message
     UI.showAlert('Mii Edit Successful', 'success');
 
-    // Close the modal programmatically
-    // bootstrap.Modal.getInstance(document.querySelector('#editModal')).hide();
     editModal.hide();
 });
 
