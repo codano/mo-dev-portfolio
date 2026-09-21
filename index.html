@@ -7,24 +7,66 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<section>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#">About</a> |</li>
-            <li><a href="#">Work</a> |</li>
-            <li><a href="#">Contact</a> |</li>
-        </ul>
+<header>
+    <nav class="nav">
+        <div class="nav-wrapper">
+            <h1 class="logo"><a href="/index.html">MQ</a></h1>
+            <ul class="nav-ul">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Work</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
     </nav>
-</section>
+</header>
 
-<section>
-    <div>
-<h1>Hello World, lol</h1>
+<section class="about">
+    <div class="about-text-left">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nostrum iste eaque soluta totam! Unde.</p>
+    </div>
+    <div class="about-text-right">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
     </div>
 </section>
+
+<section class="work">
+    <div class="work-header">
+        <h2>My Work</h2>
+        <p>Here are some of my projects.</p>
+    </div>
+    <div class="project-card">
+        <h3>Project Title</h3>
+        <p>Project description goes here.</p>
+    </div>
+    <div class="project-card">
+        <h3>Project Title</h3>
+        <p>Project description goes here.</p>
+    </div>
+    <div class="project-card">
+        <h3>Project Title</h3>
+        <p>Project description goes here.</p>
+    </div>
+</section>
+<section class="contact-form">
+    <div>
+        <h2>Contact Me</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</section>
+
 <footer>
 <h2>Lets, work together</h2>
+<div class="socials"></div>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>
