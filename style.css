@@ -8,17 +8,23 @@
 :root {
     --main-font-family: Arial, sans-serif;
     --border-divider: 3px dashed #00ff00;
+    --default-bkground-color: #000;
+    --default-text-color: #fff;
+    --default-border-color: #fff;
+    --default-border-width: 3px;
+    --default-border-style: solid;
+    --default-border: var(--default-border-width) var(--default-border-style) var(--default-border-color);
 }
 
 
 .nav {
     position: fixed;
-    background-color: #a9a9a9;
+    background-color: var(--default-bkground-color);
     top: 0;
     left: 0;
     right: 0;
     transition: all 0.3s ease-in-out;
-    border-bottom: .3em solid #fff;
+    border-bottom: var(--default-border);
     
 
 }
@@ -35,7 +41,7 @@
 .logo  {
     background: #000;
     margin-left: 2em;
-    border: 3px solid #fff;
+    border: var(--default-border);
     border-radius: 5%;
 }
 /* 
@@ -52,14 +58,14 @@
 }
 
 .nav a {
-    color: #fff;
+    color: var(--default-text-color);
     text-decoration: none;
     padding: .5em 1em;
     transition: all 0.3s ease-in-out;
 }
 
 body {
-    background-color: #a9a9a9;
+    background-color: var(--default-bkground-color);
     width: 85%;
     margin: 0 auto;
 }
@@ -68,14 +74,13 @@ body {
     display: flex;
     margin: 5.5em 0 3em 0;
     padding: 2em;
-
-
 }
 
 .about-text-left, .about-text-right {
     width: 50%;
     padding: 1em;
-    border: 1px solid red;
+    border: var(--default-border);
+    color: var(--default-text-color);
 }
 
 .work {
@@ -86,13 +91,14 @@ body {
     padding: 2em;
 }
 
-/* .work-header {
+.work-header {
     flex-direction: column;
 }
 
 .project-card {
     flex-direction: column;
-} */
+} 
+
 .contact-form {
  display: flex;
  margin: 0 0 3em 0;
