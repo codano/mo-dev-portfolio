@@ -7,13 +7,12 @@
 
 :root {
     --main-font-family: Arial, sans-serif;
+    --main-font-size: 1.5rem;
+    --font-weight: bold;
     --border-divider: 3px dashed #00ff00;
     --default-bkground-color: #000;
     --default-text-color: #fff;
-    --default-border-color: #fff;
-    --default-border-width: 3px;
-    --default-border-style: solid;
-    --default-border: var(--default-border-width) var(--default-border-style) var(--default-border-color);
+    --default-border: 3px solid #fff;
 }
 
 
@@ -70,6 +69,10 @@ body {
     margin: 0 auto;
 }
 
+/* img {
+    max-width: 100%;
+} */
+
 .about {
     display: flex;
     margin: 5.5em 0 3em 0;
@@ -86,29 +89,55 @@ body {
 .work {
     display: flex;
     flex-direction: column;
-    text-align: center;
+    /* text-align: center; */
     margin: 0 0 3em 0;
     padding: 2em;
+    color: var(--default-text-color);
 }
 
-.work-header {
-    flex-direction: column;
+.work-title {
+    font-size: var(--main-font-size);
+    font-weight: var(--font-weight);
 }
 
-.project-card {
+.cards-wrapper {
+    margin: 1em auto;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.5rem;
+
+}
+
+.card {
+    border: var(--border-divider);
+    border-radius: 3px;
+    /* grid-template-rows:  */
+    /* display: flex;
     flex-direction: column;
+    position: relative; */
+
+
 } 
+
+.card img {
+    object-fit: cover;
+    width: 100%;
+    height: 15rem;
+}
 
 .contact-form {
  display: flex;
  margin: 0 0 3em 0;
  padding: 2em;   
+ color: var(--default-text-color);
 }
 
 footer {
     display: flex;
     margin: 0 0 3em 0;
     padding: 2em;
+    color: var(--default-text-color);
 }
 .about, .work, .contact-form, footer {
     border: var(--border-divider);
