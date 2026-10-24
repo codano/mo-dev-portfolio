@@ -8,8 +8,24 @@
 </head>
 <body>
     <div class="calc-wrapper">
-        <h1>Dividend Calculator "smile"</h1>
+        <div class="calc-header">
+        <h1>Dividend Calculator "smiley-face"</h1>
+        <p>calculate dividends from alliant credit union</p></div>
+        <form id="dividend-form">
+            <div class="">
+                <label for="current-balance">Current Balance</label>
+                <input type="number" id="current-balance" name="current-balance" required>
+            </div>
 
+            <div class="">
+                <label for="dividend-rate">Dividend Rate</label>
+                <input type="number" id="dividend-rate" name="dividend-rate" required>
+            </div>
+            
+            <div class="calc-footer">
+                <button type="submit">Calculate Dividend</button>
+            </div>
+        </form>
     </div>
     <script src="script.js"></script>
 </body>
