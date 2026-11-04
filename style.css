@@ -9,10 +9,14 @@
     --main-font-family: Arial, sans-serif;
     --main-font-size: 1.5rem;
     --font-weight: bold;
-    --border-divider: 3px dashed #00ff00;
-    --default-bkground-color: #000;
+    --border-divider: 3px dashed #12475c;
+    --default-bkground-color: #2f3e4a;
     --default-text-color: #fff;
     --default-border: 3px solid #fff;
+    --first-color: #12475c;
+    --second-color: #5f8998;
+    --third-color: #aec3b0;
+    --fourth-color: #f1f9e2;
 }
 
 
@@ -38,7 +42,7 @@
 }
 
 .logo  {
-    background: #000;
+    background: var(--default-bkground-color);
     margin-left: 2em;
     border: var(--default-border);
     border-radius: 5%;
@@ -82,7 +86,7 @@ body {
 .about-text-left, .about-text-right {
     width: 50%;
     padding: 1em;
-    border: var(--default-border);
+    border: var(--border-divider);
     color: var(--default-text-color);
 }
 
@@ -102,30 +106,42 @@ body {
 
 .cards-wrapper {
     margin: 1em auto;
-    
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    max-width: 1200px;
+    margin: auto 2.5rem;
+    align-items: center;
     gap: 1.5rem;
 
 }
 
 .card {
-    border: var(--border-divider);
+    /* border: var(--border-divider); */
     border-radius: 3px;
-    /* grid-template-rows:  */
-    /* display: flex;
+    /* position: relative; */
+    display: flex;
     flex-direction: column;
-    position: relative; */
-
-
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
 } 
+
+.card:hover{
+    box-shadow: 0 .5rem 1rem var(--third-color);
+}
 
 .card img {
     object-fit: cover;
     width: 100%;
     height: 15rem;
+    border-radius: 1rem;
 }
 
+.card:nth-child(1) {
+    background-color: var(--first-color);
+}
 .contact-form {
  display: flex;
  margin: 0 0 3em 0;
