@@ -10,12 +10,13 @@
     --main-font-size: 1.5rem;
     --font-weight: bold;
     --border-divider: 3px dashed #12475c;
-    --default-bkground-color: #2f3e4a;
+    --default-bkground-color: #1f1f1f;
     --default-text-color: #fff;
     --default-border: 3px solid #fff;
-    --first-color: #12475c;
+    --default-border-radius: 3px;
+    --first-color: #222222;
     --second-color: #5f8998;
-    --third-color: #aec3b0;
+    --third-color: #a8c686;
     --fourth-color: #f1f9e2;
 }
 
@@ -86,7 +87,7 @@ body {
 .about-text-left, .about-text-right {
     width: 50%;
     padding: 1em;
-    border: var(--border-divider);
+    /* border: var(--border-divider); */
     color: var(--default-text-color);
 }
 
@@ -117,7 +118,7 @@ body {
 
 .card {
     /* border: var(--border-divider); */
-    border-radius: 3px;
+    border-radius: var(--default-border-radius);
     /* position: relative; */
     display: flex;
     flex-direction: column;
@@ -126,6 +127,7 @@ body {
     padding: 1.5rem 2rem;
     border-radius: 1rem;
     overflow: hidden;
+    background-color: var(--first-color);
 } 
 
 .card:hover{
@@ -139,16 +141,23 @@ body {
     border-radius: 1rem;
 }
 
-.card:nth-child(1) {
+/* .card:nth-child(1) {
     background-color: var(--first-color);
-}
+} */
+
 .contact-form {
  display: flex;
+ 
  margin: 0 0 3em 0;
  padding: 2em;   
  color: var(--default-text-color);
+ background-color: var(--first-color);
+
 }
 
+input[type=text], select, textarea {
+    border: 1px solid #ccc;
+}
 footer {
     display: flex;
     margin: 0 0 3em 0;
@@ -157,4 +166,5 @@ footer {
 }
 .about, .work, .contact-form, footer {
     border: var(--border-divider);
+border-radius: var(--default-border-radius);
 }
